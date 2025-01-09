@@ -30,14 +30,12 @@
     .selected {
       background: pink;
       min-height: 60px;
-      min-width: 200px;
       border: 3px solid red;
       margin: 5px;
     }
     .notSelected {
       background: white;
       min-height: 60px;
-      min-width: 200px;
       border: 3px solid grey;
       margin: 5px;
     }
@@ -86,16 +84,22 @@
       }
       function open() {}
       function save() {
+        if (absentees.length!=0) {
 
+        }
       }
       function copy() {
-        let date = new Date()
-        let text = `Absentees on ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
-        absentees.sort();
-        for (var i=0; i<absentees.length; i++) {
-          text += "\n"+absentees[i]
+        if (absentees.length!=0) {
+          let date = new Date()
+          let text = `Absentees on ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+          absentees.sort();
+          for (var i=0; i<absentees.length; i++) {
+            text += "\n"+absentees[i]
+          }
+          navigator.clipboard.writeText(text);
+          document.getElementById("copy").innerHTML = "Copied!"
+          save()
         }
-        navigator.clipboard.writeText(text);
       }
       const storer = document.getElementById("storer")
       let expa = ["Civil Engineering", "Computer Science and Engineering", "Electronics and Comuunication Engineering", "Electrical and Electronics Engineering", "Mechanical Engineering"]
