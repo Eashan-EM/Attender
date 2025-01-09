@@ -1,0 +1,116 @@
+<html>
+  <head><title>Attender</title></head>
+  <style>
+    .separator {
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    .separator::before, .separator::after {
+      content: '';
+      flex: 1;
+      margin: 5px;
+      border-bottom: 2px solid #000;
+    }
+    #actions {
+      background: white;
+      display: flex;
+      flex-direction: row;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 5px;
+      min-height: 30px;
+    }
+    #storer {
+      display: flex;
+      flex-direction: column;
+    }
+    .selected {
+      background: pink;
+      min-height: 60px;
+      min-width: 200px;
+      border: 3px solid red;
+      margin: 5px;
+    }
+    .notSelected {
+      background: white;
+      min-height: 60px;
+      min-width: 200px;
+      border: 3px solid grey;
+      margin: 5px;
+    }
+    button {
+      border-radius: 4px;
+      outline: none;
+      box-shadow: none;
+      border: none;
+      flex-grow: 1;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    #open {
+      background: #FF2400;
+    }
+    #save {
+      background: #0096FF;
+    }
+    #copy {
+      background: #65FE08;
+    }
+  </style>
+  <body>
+    <div id="storer">
+    </div>
+    <div id="actions">
+      <button id="Open" onclick="open()">Open</button>
+      <button id="Save" onclick="save()">Save</button>
+      <button id="copy" onclick="copy()">Copy</button>
+    </div>
+    <script>
+      let absentees = []
+      function buttonCall(num) {
+        let button = document.getElementById(num)
+        if (button.className=="notSelected") {
+          button.className = "selected"
+          absentees.push(button.innerHTML)
+        } else {
+          button.className = "notSelected"
+          absentees.forEach((item, index) => {
+            if (item === button.innerHTML) {
+              absentees.splice(index, 1);
+            }
+          })
+        }
+      }
+      function open() {}
+      function save() {
+
+      }
+      function copy() {
+        let date = new Date()
+        let text = `Absentees on ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+        absentees.sort();
+        for (var i=0; i<absentees.length; i++) {
+          text += "\n"+absentees[i]
+        }
+        console.log(text)
+      }
+      const storer = document.getElementById("storer")
+      let expa = ["Civil Engineering", "Computer Science and Engineering", "Electronics and Comuunication Engineering", "Electrical and Electronics Engineering", "Mechanical Engineering"]
+      let deps = ["24CVE10", "24CSE10", "24ECE10", "24EEE10", "24MCE10"]
+      let roll = [[10, 18], [15, 28], [14, 26], [13, 24], [10, 18]]
+      var dyn = ""
+      var val = ""
+      for (var i=0; i<deps.length; i++) {
+        dyn += `<div class="separator">${expa[i]}</div>`
+        for (var j=roll[i][0]; j<=roll[i][1]; j++) {
+          val = deps[i]+j.toString();
+          dyn += `<button class="notSelected" id="${val}" onclick="buttonCall('${val}')">${val}</button>\n`
+        }
+      }
+      storer.innerHTML = dyn
+    </script>
+  </body>
+</html>
