@@ -95,7 +95,7 @@
         for (var i=0; i<absentees.length; i++) {
           text += "\n"+absentees[i]
         }
-        console.log(text)
+        navigator.clipboard.writeText(text);
       }
       const storer = document.getElementById("storer")
       let expa = ["Civil Engineering", "Computer Science and Engineering", "Electronics and Comuunication Engineering", "Electrical and Electronics Engineering", "Mechanical Engineering"]
