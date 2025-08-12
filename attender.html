@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attender</title>
+    <style>
+        :root {
+            --background-color: oklch(0.1 0.085 260);
+            --text-color: oklch(0.96 0.1 260);
+            --danger: oklch(0.7 0.17 30);
+            --primary: oklch(0.76 0.17 260);
+            --success: oklch(0.7 0.17 160);
+            --card-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            --button-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            --border-radius: 12px;
+            --font-main: 'Segoe UI', 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            margin: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        div {
+            font-size: 1.5rem;
+        }
+
+        .openShow {
+            background: var(--background-color);
+            border-radius: var(--border-radius);
+            margin: 18px 8px;
+            padding: 18px 20px 16px 20px;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s;
+            border: 1px solid #222;
+        }
+
+        .openHead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 40px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        #openTitle {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        #openCopy {
+            background: var(--success);
+            color: var(--text-color);
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--button-shadow);
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        #openCopy:hover {
+            background: oklch(0.75 0.17 160);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        }
+
+        #openBody {
+            /* margin-top: 18px; */
+            margin-left: 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin: 24px 0 8px 0;
+            letter-spacing: 1px;
+        }
+        .separator::before, .separator::after {
+            content: '';
+            flex: 1;
+            margin: 0 10px;
+            border-bottom: 2px solid var(--primary);
+            opacity: 0.5;
+        }
+
+        #actions {
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: row;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding: 12px 10px;
+            min-height: 60px;
+            box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
+            z-index: 10;
+        }
+
+        #storer {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.1rem;
+            margin-bottom: 180px;
+            padding: 0 8px;
+        }
+
+        .selected {
+            background: var(--danger);
+            min-height: 60px;
+            margin: 6px 0;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: var(--card-shadow);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--danger);
+            transition: box-shadow 0.2s, border 0.2s;
+        }
+
+        .notSelected {
+            background: var(--background-color);
+            color: var(--text-color);
+            min-height: 60px;
+            border: 2px solid #888;
+            margin: 6px 0;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s, border 0.2s;
+        }
+        .notSelected:hover {
+            border: 2px solid var(--primary);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            cursor: pointer;
+        }
+
+        button {
+            font-size: 2.2rem;
+            border-radius: var(--border-radius);
+            outline: none;
+            box-shadow: var(--button-shadow);
+            border: none;
+            flex-grow: 1;
+            margin: 0 8px;
+            padding: 12px 0;
+            color: var(--text-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+        }
+        button:active {
+            transform: scale(0.97);
+        }
+
+        #open {
+            background: var(--danger);
+        }
+        #open:hover {
+            background: oklch(0.8 0.17 30);
+        }
+
+        #save {
+            background: var(--primary);
+        }
+        #save:hover {
+            background: oklch(0.8 0.17 260);
+        }
+
+        #toggleMode {
+            background: var(--success);
+        }
+        #toggleMode:hover {
+            background: oklch(0.8 0.17 160);
+        }
+
+        @media (max-width: 600px) {
+            .openShow {
+                padding: 10px 6px;
+                font-size: 1rem;
+            }
+            .openHead {
+                flex-direction: column;
+                min-height: 32px;
+            }
+            #actions {
+                flex-direction: column;
+                padding: 8px 2px;
+            }
+            button {
+                font-size: 1.2rem;
+                padding: 8px 0;
+                margin: 4px 0;
+            }
+            .separator {
+                font-size: 1.1rem;
+            }
+            #storer {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="storer"></div>
+    <div id="openDiv"></div>
+    <div id="actions">
+        <button id="open" onclick="openLog()">Open</button>
+        <button id="save" onclick="save()">Save</button>
+        <button id="toggleMode" onclick="toggleMode()">Toggle Mode</button>
+    </div>
+    <script>
+        let store = { "dates": [] }
+        function initiate() {
+            if (localStorage.getItem("absentees") === null) localStorage.setItem("absentees", JSON.stringify(store))
+            else store = JSON.parse(localStorage.getItem("absentees"))
+        }
+
+        let absentees = []
+        let mode = "absentee"
+
+        function buttonCall(num) {
+            let button = document.getElementById(num)
+            if (button.className == "notSelected") {
+                button.className = "selected"
+                if (mode === "presentee") {
+                    button.style.background = getComputedStyle(document.documentElement).getPropertyValue('--success')
+                    button.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+                } else {
+                    button.style.background = getComputedStyle(document.documentElement).getPropertyValue('--danger')
+                    button.style.color = '#fff'
+                }
+                absentees.push(button.innerHTML)
+            } else {
+                button.className = "notSelected"
+                button.style.background = getComputedStyle(document.documentElement).getPropertyValue('--background-color')
+                button.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+                absentees.forEach((item, index) => {
+                    if (item === button.innerHTML) absentees.splice(index, 1)
+                })
+            }
+        }
+        function makeText() {
+            let date = new Date()
+            let label = mode === "presentee" ? "Presentees" : "Absentees"
+            let text = `${label} on ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+            absentees.sort()
+            for (var i=0; i<absentees.length; i++) text += "\n"+absentees[i]
+            return text
+        }
+        function openCopy(i) {
+            navigator.clipboard.writeText(store.dates[i][1])
+        }
+        function openLog() {
+            let open = document.getElementById("open")
+            let openDiv = document.getElementById("openDiv")
+            let text = ""
+            if (open.innerHTML === "Open") {
+                let sortedDates = [...store.dates].filter(arr => arr && arr[0] && typeof arr[0] === 'string').sort((a, b) => {
+                    const parseDate = str => {
+                        if (!str || typeof str !== 'string' || !str.includes(' @ ')) return new Date(0)
+                        let [datePart, timePart] = str.split(' @ ')
+                        if (!datePart || !timePart) return new Date(0)
+                        let [d, m, y] = datePart.split('/').map(Number)
+                        let [h, min, s] = timePart.split(':').map(Number)
+                        if ([d, m, y, h, min, s].some(isNaN)) return new Date(0)
+                        return new Date(y, m - 1, d, h, min, s)
+                    }
+                    return parseDate(b[0]) - parseDate(a[0])
+                })
+                for (var i = 0; i < sortedDates.length; i++) {
+                    text += `
+                    <div class="openShow">
+                        <div class="openHead">
+                            <p id="openTitle">${sortedDates[i][0]}</p>
+                        </div>
+                        <hr/>
+                        <div id="openBody">
+                            <span style="white-space: pre-line">${sortedDates[i][1]}</span><br>
+                            <button id="openCopy" onclick="openCopy(${i})">Copy</button>
+                        </div>
+                    </div>`
+                }
+                open.innerHTML = "Close"
+                storer.innerHTML = ""
+                storer.style.marginBottom = "0"
+                openDiv.innerHTML = text
+            } else {
+                open.innerHTML = "Open"
+                openDiv.innerHTML = ""
+                storer.style.marginBottom = "180px"
+                setup()
+            }
+        }
+        function save() {
+            if (absentees.length != 0) {
+                let date = new Date()
+                let text = makeText()
+                let obj = [`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} @ ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`, text]
+                store.dates.push(obj)
+                localStorage.setItem("absentees", JSON.stringify(store))
+                navigator.clipboard.writeText(text)
+                for (let i = 0; i < absentees.length; i++) {
+                    let btn = document.getElementById(absentees[i]);
+                    if (btn) {
+                        btn.className = "notSelected";
+                        btn.style.background = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+                        btn.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                    }
+                }
+                absentees = [];
+                document.getElementById("save").innerHTML = "Saved & Copied!";
+                setTimeout(() => { document.getElementById("save").innerHTML = "Save" }, 2000);
+            }
+        }
+        function toggleMode() {
+            mode = mode === "absentee" ? "presentee" : "absentee"
+            for (let i = 0; i < absentees.length; i++) {
+                let btn = document.getElementById(absentees[i])
+                if (btn && btn.className === "selected") {
+                    if (mode === "presentee") {
+                        btn.style.background = getComputedStyle(document.documentElement).getPropertyValue('--success')
+                        btn.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+                    } else {
+                        btn.style.background = getComputedStyle(document.documentElement).getPropertyValue('--danger')
+                        btn.style.color = '#fff'
+                    }
+                }
+            }
+            document.getElementById("toggleMode").innerHTML = mode === "absentee" ? "Toggle Mode" : "Toggle Mode"
+        }
+
+        const arrayRange = (start, stop, step) => Array.from({ length: (stop - start) / step + 1 }, (_, index) => start + index * step)
+        const storer = document.getElementById("storer")
+
+        let expa = ["Computer Science and Engineering", "Backlog"]
+        let deps = ["24CSE10", "23CSE10"]
+        let roll = [arrayRange(1, 57, 1), [3, 9, 41]]
+
+        function setup() {
+            var dyn = ""
+            var val = ""
+            for (var i=0; i<deps.length; i++) {
+                dyn += `<div class="separator">${expa[i]}</div>`
+                for (var j of roll[i]) {
+                    val = deps[i]+j.toString().padStart(2, "0")
+                    dyn += `<button class="notSelected" id="${val}" onclick="buttonCall('${val}')">${val}</button>\n`
+                }
+            }
+            storer.innerHTML = dyn
+            for (var i=0; i<deps.length; i++) {
+                for (var j of roll[i]) {
+                    val = deps[i]+j.toString().padStart(2, "0")
+                    let btn = document.getElementById(val)
+                    if (btn) {
+                        btn.style.background = getComputedStyle(document.documentElement).getPropertyValue('--background-color')
+                        btn.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color')
+                    }
+                }
+            }
+        }
+        initiate()
+        setup()
+    </script>
+</body>
+</html>
