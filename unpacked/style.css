@@ -1,0 +1,212 @@
+:root {
+    --background-color: oklch(0.1 0.085 260);
+    --text-color: oklch(0.96 0.1 260);
+    --danger: oklch(0.7 0.17 30);
+    --primary: oklch(0.76 0.17 260);
+    --success: oklch(0.7 0.17 160);
+	--card-shadow: 0 4px 24px rgba(0,0,0,0.15);
+	--button-shadow: 0 2px 8px rgba(0,0,0,0.10);
+	--border-radius: 12px;
+	--font-main: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+	font-family: var(--font-main);
+	margin: 0;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+
+div {
+	font-size: 1.5rem;
+}
+
+.openShow {
+	background: var(--background-color);
+	border-radius: var(--border-radius);
+	margin: 18px 8px;
+	padding: 18px 20px 16px 20px;
+	box-shadow: var(--card-shadow);
+	transition: box-shadow 0.2s;
+	border: 1px solid #222;
+}
+
+.openHead {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 40px;
+	text-align: center;
+	margin-bottom: 8px;
+}
+
+#openTitle {
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}
+
+#openCopy {
+	background: var(--success);
+	color: var(--text-color);
+	width: 100%;
+	text-align: center;
+	margin-bottom: 0;
+    margin-top: 0.5rem;
+	font-size: 1rem;
+	border-radius: var(--border-radius);
+	border: none;
+	box-shadow: var(--button-shadow);
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+#openCopy:hover {
+	background: oklch(0.75 0.17 160);
+	box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+#openBody {
+	/* margin-top: 18px; */
+	margin-left: 0;
+	font-size: 1.1rem;
+	line-height: 1.5;
+	word-break: break-word;
+}
+
+.separator {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	font-size: 1.3rem;
+	font-weight: 500;
+	color: var(--primary);
+	margin: 24px 0 8px 0;
+	letter-spacing: 1px;
+}
+.separator::before, .separator::after {
+	content: '';
+	flex: 1;
+	margin: 0 10px;
+	border-bottom: 2px solid var(--primary);
+	opacity: 0.5;
+}
+
+#actions {
+	background-color: var(--background-color);
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding: 12px 10px;
+	min-height: 60px;
+	box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
+	z-index: 10;
+}
+
+#storer {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.1rem;
+	margin-bottom: 180px;
+	padding: 0 8px;
+}
+
+.selected {
+	background: var(--danger);
+	min-height: 60px;
+	margin: 6px 0;
+	color: #fff;
+	font-weight: 600;
+	box-shadow: var(--card-shadow);
+	border-radius: var(--border-radius);
+	border: 2px solid var(--danger);
+	transition: box-shadow 0.2s, border 0.2s;
+}
+
+.notSelected {
+	background: var(--background-color);
+	color: var(--text-color);
+	min-height: 60px;
+	border: 2px solid #888;
+	margin: 6px 0;
+	border-radius: var(--border-radius);
+	font-weight: 500;
+	box-shadow: var(--card-shadow);
+	transition: box-shadow 0.2s, border 0.2s;
+}
+.notSelected:hover {
+	border: 2px solid var(--primary);
+	box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+	cursor: pointer;
+}
+
+button {
+	font-size: 2.2rem;
+	border-radius: var(--border-radius);
+	outline: none;
+	box-shadow: var(--button-shadow);
+	border: none;
+	flex-grow: 1;
+	margin: 0 8px;
+	padding: 12px 0;
+	color: var(--text-color);
+	font-weight: 600;
+	letter-spacing: 1px;
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+button:active {
+	transform: scale(0.97);
+}
+
+#open {
+	background: var(--danger);
+}
+#open:hover {
+	background: oklch(0.8 0.17 30);
+}
+
+#save {
+	background: var(--primary);
+}
+#save:hover {
+	background: oklch(0.8 0.17 260);
+}
+
+#toggleMode {
+	background: var(--success);
+}
+#toggleMode:hover {
+	background: oklch(0.8 0.17 160);
+}
+
+@media (max-width: 600px) {
+	.openShow {
+		padding: 10px 6px;
+		font-size: 1rem;
+	}
+	.openHead {
+		flex-direction: column;
+		min-height: 32px;
+	}
+	#actions {
+		flex-direction: column;
+		padding: 8px 2px;
+	}
+	button {
+		font-size: 1.2rem;
+		padding: 8px 0;
+		margin: 4px 0;
+	}
+	.separator {
+		font-size: 1.1rem;
+	}
+	#storer {
+		font-size: 1rem;
+	}
+}
