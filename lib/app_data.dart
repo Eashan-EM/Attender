@@ -395,7 +395,7 @@ class Section {
     List<Widget> builds = List.generate(outputValues.length, (index) {
       return Container(
         width: double.infinity,
-        height: 35,
+        height: 50,
         decoration: BoxDecoration(
           border: Border.all(
             width: 3.0,
@@ -492,7 +492,6 @@ class Workspace {
     builds.add(
       SizedBox(
         width: double.infinity,
-        child: Expanded(
           child: TextButton.icon(
             onPressed: () {
               lastSectionIndex += 1;
@@ -512,7 +511,6 @@ class Workspace {
             ),
           )
         ),
-      )
     );
     return builds;
   }

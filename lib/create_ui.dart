@@ -206,7 +206,8 @@ class _ShowDrawer extends State<ShowDrawer> {
                 style: textStyle,
               ),
               RulesFormatter(),
-              Text(
+ 
+             Text(
                 "Ouptut Formatter",
                 style: textStyle
               ),
@@ -243,7 +244,7 @@ class _ShowDrawer extends State<ShowDrawer> {
                   ),
                 )
               ),
-              SizedBox(
+             SizedBox(
                 width: double.infinity,
                 child: Builder(
                   builder: (ctx) {
@@ -271,6 +272,9 @@ class _ShowDrawer extends State<ShowDrawer> {
                   }
                 )
               ),
+              SizedBox(
+                height: 500,
+              )
             ]
           ),
         ),

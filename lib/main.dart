@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ShowActionButtons(),
           SizedBox(height: 40,)
         ]
-      )
+      ),
     );
   }
 }
