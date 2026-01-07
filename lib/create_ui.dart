@@ -255,7 +255,7 @@ class _ShowDrawer extends State<ShowDrawer> {
                   builder: (ctx) {
                     return TextButton.icon(
                       onPressed: () {
-                        data.deleteCurrentWorksapce();
+                        data.deleteCurrentWorkspace();
                         if (data.isDeleted) {
                           data.appUpdate();
                           Scaffold.of(context).closeDrawer();

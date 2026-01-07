@@ -84,7 +84,7 @@ class Data {
   DateTime deleteStart = DateTime.now();
   int deleteTimes = 0;
   bool isDeleted = false;
-  void deleteCurrentWorksapce() {
+  void deleteCurrentWorkspace() {
     isDeleted = false;
     DateTime now = DateTime.now();
     if (deleteTimes==0) {
@@ -107,6 +107,7 @@ class Data {
         }
       }
    }
+    // Delete button has to be pressed 3 times for workspace to delete
     if (deleteTimes<3 && now.difference(deleteStart).inSeconds>=5) {
       deleteStart = now;
       isDeleted = false;

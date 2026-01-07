@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:attender/app_data.dart';
 import 'dart:convert';
 
+// Default Data to be filled when "dataFile" is not created, i.e. app is launched for first time
 String fillSpecialData() {
   return '''
 {
@@ -11,6 +12,7 @@ String fillSpecialData() {
 }''';
 }
 
+// Default Data to be filled when "dateFile" is not created, i.e. app is launched for first time, or attendence has never been saved
 String fillDateData() {'package:attender/app_data.dart';
   return '''
 {
@@ -18,22 +20,27 @@ String fillDateData() {'package:attender/app_data.dart';
 }''';
 }
 
+// Gets directory to store files in
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
   return directory.path;
 }
 
+// Gets the data file
 Future<File> get _localFile async {
   final path = await _localPath;
   return File('$path/appData.json');
 }
 
+// Gets the "dateFile"
 Future<File> get _dateFile async {
   final path = await _localPath;
   return File('$path/dateFile.json');
 }
 
+// Write data to either data file or date file depending on parameter
 Future<File> writeData(String data, String fileType) async {
+  // filetype can be "dataFile" or "dateFile"
   File file;
   if (fileType=="dataFile") {
     file = await _localFile;
@@ -43,6 +50,7 @@ Future<File> writeData(String data, String fileType) async {
   return file.writeAsString(data);
 }
 
+// Checks if data file or date file exists
 Future<bool> fileDoesNotExists(String fileType) async {
   File file;
   if (fileType=="dataFile") {
@@ -57,6 +65,7 @@ Future<bool> fileDoesNotExists(String fileType) async {
   return !fileExists; // Returns true if the file does NOT exist
 }
 
+// Read data from either data file or date file
 Future<String> readData(String fileType) async {
   try {
     File file;
@@ -75,6 +84,7 @@ Future<String> readData(String fileType) async {
   }
 }
 
+// Either reads file successfully or returns default data
 Future<void> readFile(String file) async {
   String jsonString;
   //await writeData(fillSpecialData(), "dataFile");
@@ -97,6 +107,7 @@ Future<void> readFile(String file) async {
   Data().fillDateData(await readData("dateFile"));
 }
 
+// Convert internal data to JSON and save it to file
 void jsonizeAndWrite(String fileType, {bool delete=false}) async {
   if (fileType=="dataFile") {
     writeData(json.encode(Data().jsonize()), "dataFile");

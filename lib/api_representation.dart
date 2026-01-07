@@ -9,6 +9,7 @@ import 'package:attender/dsl_parser.dart';
   return (0, 0);
 }
 
+// Serialize/Deserialize class for each Rule
 class Rule {
   int id = 0;
   String statement = "";
@@ -40,6 +41,7 @@ class Rule {
   }
 }
 
+// Serialize/Deserialize class for each Section
 class Section {
   int id = 0;
   String markingType = "Presentees";
@@ -270,6 +272,7 @@ class Section {
   }
 }
 
+// Serialize/Deserialize class for each Workspace
 class Workspace {
   int id = 0;
   String title = "";

@@ -5,6 +5,7 @@ import 'package:attender/helpers.dart';
 import 'package:attender/api_representation.dart';
 
 Future<void> main() async {
+  // Required as file reading has to be done before app starts
   WidgetsFlutterBinding.ensureInitialized();
   await readFile("dataFile");
   await readFile("dateFile");

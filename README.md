@@ -1,46 +1,39 @@
-# Attender
+# Introduction
 
-Attender is a simple, modern web app for tracking absentees and presentees in a classroom or group. It features a clean UI, local storage, and clipboard integration for easy record-keeping and sharing.
+This app was made in an effort to make attendance marking easier
 
-## Features
+# What are Rules?
 
-- Select absentees or presentees by clicking on roll numbers.
-- Toggle between Absentee and Presentee modes.
-- Save attendance records to local storage.
-- Copy attendance records to clipboard automatically when saving.
-- View and copy previous records.
-- Responsive, visually appealing design.
+For creating the Roll Numbers, a rule based syntax is used which makes it easier to generate the numbers
 
-## Usage
+As of v1.0, the following rules do work
+The only rule currently supported are lists and ranges which use `[]` to parse
 
-1. **Select Mode:**  
-   Use the "Toggle Mode" button to switch between Absentee and Presentee modes.
-2. **Mark Attendance:**  
-   Click on roll number buttons to select students.
-3. **Save & Copy:**  
-   Click "Save" to store the record and copy it to your clipboard.
-4. **View Records:**  
-   Click "Open" to view previous attendance logs and copy them if needed.
+```rules
+[0..10]  -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  // Example of range
+[00..15] -> [00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10] // Example of range with minimum width charater at left, the '0' is padded when length < 2
+```
+Rules with external string
+```rules
+24CSE10[01, 02, 03] -> [24CSE1001, 24CSE1002, 24CSE1003]  // The string outside [] remains unchanged
+24CSE10[01..03]     -> [24CSE1001, 24CSE1002, 24CSE1003]
+24CSE[10, 11][00..03] -> [24CSE1000, 24CSE1001, 24CSE1002, 24CSE1003, 24CSE1100, 24CSE1101, 24CSE1102, 24CSE1103]
+```
 
-## Tech Stack
+## Output Rules
+While printing formatted output, special variables are available
 
-- HTML, CSS (with oklch color scheme)
-- JavaScript (Vanilla, no frameworks)
-- Local Storage API
-- Clipboard API
+```
+Absentees on [Date.today]
+[section0.Absentees]
 
-## Setup
+Backlog Presentees on [Date.today]
+[section1.Presentees]
+```
+As it can be seen `[]` is used to mark the parsable code
 
-1. Clone or download the repository.
-2. Open `attender.html` in your browser.
+`[Date.today]` as its name says, returns the current date in `dd/mm/yyyy` format
 
-No build steps or dependencies required.
+To use the `sectionX`, where x = 0,1..., sections should be created using `Add Section`. The section number corresponds to the section title
 
-## Customization
-
-- Edit `style.css` for color and layout changes.
-- Update `index.js` for logic or feature enhancements.
-
-## License
-
-MIT License
+Each section variable has a `.Presentees` and `.Absentees`, which gives the required cards

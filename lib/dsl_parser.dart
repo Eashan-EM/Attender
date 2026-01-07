@@ -2,6 +2,17 @@
 
 import 'package:attender/app_data.dart';
 
+/*
+* The way the app creates roll numbers is based on rule syntax. As it will be tedious to give all roll numbers
+* its better to use quick rule syntax
+*/
+
+/*
+*  Converts a range of form [num1..num2] to a list [num1, num1+1, num1+2, ..., num2]
+* First number can have a minimum width and add a number to it
+*   [0..10]  -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+*   [00..15] -> [00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10]
+*/
 List<String> range(String rule) {
   String num1 = "", num2 = "";
   bool firstNum = true;
@@ -47,6 +58,7 @@ List<String> parseSection(int id, String type) {
   return ret;
 }
 
+// The output after parsing all rules
 List<String> parseOutRules(String rule) {
   DateTime now = DateTime.now();
   String nowTime = "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}";
@@ -85,6 +97,7 @@ List<String> parseOutRules(String rule) {
   return [];
 }
 
+// This function checks if rule is of format [a..b] or [a, b, c]
 List<String> getRuleCards(String rule) {
   List<String> builds = [];
   if (rule.contains("..")) {
@@ -96,6 +109,13 @@ List<String> getRuleCards(String rule) {
   return builds;
 }
 
+// Converts a rule to string
+/*
+*  The only current way to declare quick rules is using []
+*     24CSE10[01, 02, 03] -> [24CSE1001, 24CSE1002, 24CSE1003]
+*     24CSE10[01..03]     -> [24CSE1001, 24CSE1002, 24CSE1003]
+*     24CSE[10, 11][00..03] -> [24CSE1000, 24CSE1001, 24CSE1002, 24CSE1003, 24CSE1100, 24CSE1101, 24CSE1102, 24CSE1103]
+*/
 List<String> parseRule(String data, {int i=0}) {
   List<String> builds = [];
   String persists = "";
