@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:attender/helpers.dart';
 import 'package:attender/app_data.dart';
@@ -33,6 +35,7 @@ class Rule {
       "id": id,
       "statement": statement
     };
+    print("System.Out printing $statement");
     return map;
   }
 }
@@ -160,6 +163,7 @@ class Section {
                     errRuleTitle = val;
                   }
                   Data().appUpdate();
+                  jsonizeAndWrite("dataFile");
                 },
                 decoration: InputDecoration(
                     border: UnderlineInputBorder(),

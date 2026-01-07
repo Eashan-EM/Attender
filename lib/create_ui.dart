@@ -183,7 +183,7 @@ class _ShowDrawer extends State<ShowDrawer> {
               ),
               if (data.getCurrentWorkspace().errFrom=="sP" && data.getCurrentWorkspace().errVal.$1>0)
                 Text(
-                  "Error in Always Present,\nColumn ${data.getCurrentWorkspace().errVal.$1} in Rule '${data.getCurrentWorkspace().errRule}': ${data.getCurrentWorkspace().errStatementArr[data.getCurrentWorkspace().errVal.$2]}",
+                  "Error in Sometimes Present,\nColumn ${data.getCurrentWorkspace().errVal.$1} in Rule '${data.getCurrentWorkspace().errRule}': ${data.getCurrentWorkspace().errStatementArr[data.getCurrentWorkspace().errVal.$2]}",
                   style: TextStyle(
                     color: Colors.red
                   ),
@@ -202,7 +202,7 @@ class _ShowDrawer extends State<ShowDrawer> {
               ),
               if (data.getCurrentWorkspace().errFrom=="aA" && data.getCurrentWorkspace().errVal.$1>0)
                 Text(
-                  "Error in Always Present,\nColumn ${data.getCurrentWorkspace().errVal.$1} in Rule '${data.getCurrentWorkspace().errRule}': ${data.getCurrentWorkspace().errStatementArr[data.getCurrentWorkspace().errVal.$2]}",
+                  "Error in Always Absent,\nColumn ${data.getCurrentWorkspace().errVal.$1} in Rule '${data.getCurrentWorkspace().errRule}': ${data.getCurrentWorkspace().errStatementArr[data.getCurrentWorkspace().errVal.$2]}",
                   style: TextStyle(
                     color: Colors.red
                   ),
