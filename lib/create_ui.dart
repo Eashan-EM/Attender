@@ -36,55 +36,59 @@ class ShowActionButtons extends StatefulWidget {
 class _ShowActionButtons extends State<ShowActionButtons> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      spacing: 5.0,
-      children: [
-        Expanded(
-          child: ElevatedButton.icon(
-          icon: const Icon(Icons.menu_open),
-          label: Text("Open"),
-          onPressed: () {
-            showActionSheet(context);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(5.0)
-            )
-          ),
-         ),
-        ),
-        Expanded(
-          child: ElevatedButton.icon(
-            icon: const Icon(Icons.save),
-            label: Text("Save"),
-            onPressed: () {
-              jsonizeAndWrite("dateFile");
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(5.0)
-              )
+    return SafeArea(
+        top: false,
+        bottom: true,
+        child: Row(
+          spacing: 5.0,
+          children: [
+            Expanded(
+              child: ElevatedButton.icon(
+                  icon: const Icon(Icons.menu_open),
+                  label: Text("Open"),
+                  onPressed: () {
+                    showActionSheet(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(5.0)
+                    )
+                  ),
+              ),
             ),
-          ),
-        ),
-        Expanded(
-          child: ElevatedButton.icon(
-            icon: const Icon(Icons.copy),
-            label: Text("Copy"),
-            onPressed: () {
-              copyToClipboard();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(5.0)
-              )
+            Expanded(
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.save),
+                label: Text("Save"),
+                onPressed: () {
+                  jsonizeAndWrite("dateFile");
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(5.0)
+                  )
+                ),
+              ),
             ),
-           ),
-        ),
-      ],
+            Expanded(
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.copy),
+                label: Text("Copy"),
+                onPressed: () {
+                  copyToClipboard();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(5.0)
+                  )
+                ),
+               ),
+            ),
+          ],
+        )
     );
   }
 }

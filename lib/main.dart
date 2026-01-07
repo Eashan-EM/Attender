@@ -134,7 +134,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           if (data.workspaces.isNotEmpty)
             ShowActionButtons(),
-          SizedBox(height: 40,)
         ]
       ),
     );
